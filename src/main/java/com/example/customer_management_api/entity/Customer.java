@@ -5,7 +5,6 @@ import lombok.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 public class Customer {
 
     @Id
@@ -20,6 +19,14 @@ public class Customer {
     private String email;
 
     private String phoneNumber;
+
+    public Customer(long id, String firstName, String lastName, String email, String phoneNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 
     public long getId() {
         return id;
