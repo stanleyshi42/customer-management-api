@@ -45,7 +45,7 @@ public class CustomerController {
 
         Customer result = service.findCustomerById(id);
         if (result == null) {
-            logger.info("Customer with ID: {} not found", id);
+            logger.debug("Customer with ID: {} not found", id);
             return null;
         }
 
@@ -66,7 +66,7 @@ public class CustomerController {
         Pattern emailPattern = Pattern.compile("^[^@]+@[^@]+\\.[^@]+$");
         Matcher matcher = emailPattern.matcher(customer.getEmail());
         if (!matcher.find()) {
-            logger.trace("New customer registration failed: invalid email syntax");
+            logger.debug("New customer registration failed: invalid email syntax");
             return null;
         }
 
@@ -74,7 +74,7 @@ public class CustomerController {
         Pattern phoneNumberPattern = Pattern.compile("^[0-9]{10}$");
         matcher = phoneNumberPattern.matcher(customer.getPhoneNumber());
         if (!matcher.find()) {
-            logger.trace("New customer registration failed: invalid phone number syntax");
+            logger.debug("New customer registration failed: invalid phone number syntax");
             return null;
         }
 
@@ -83,7 +83,7 @@ public class CustomerController {
 
         // Check if email is already taken
         if (service.findCustomerByEmail(customer.getEmail()) != null) {
-            logger.trace("New customer registration failed: email already taken");
+            logger.debug("New customer registration failed: email already taken");
             return null;
         }
 
@@ -104,7 +104,7 @@ public class CustomerController {
         // Check if update target exists
         Customer result = service.findCustomerById(customer.getId());
         if (result == null) {
-            logger.info("Update failed: customer with ID: {} not found", customer.getId());
+            logger.debug("Update failed: customer with ID: {} not found", customer.getId());
             return null;
         }
 
@@ -120,7 +120,7 @@ public class CustomerController {
         service.deleteCustomerById(id);
 
         if (count != service.findAllCustomers().size()) {
-            logger.info("Deleted customer with ID: {}", id);
+            logger.debug("Deleted customer with ID: {}", id);
             return true;
         }
         return false;
