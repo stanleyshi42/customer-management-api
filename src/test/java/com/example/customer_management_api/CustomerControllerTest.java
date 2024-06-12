@@ -22,21 +22,11 @@ class CustomerControllerTest {
     }
 
     @Test
-    void contrllerTest() {
-
-        // Test email regex
-        Customer newCustomer = new Customer(0, "Test", "Name", "test.com", "1112223333");
-        Customer result = controller.addCustomer(newCustomer);
-        assertNull(result);
-
-        // Test phone number regex
-        newCustomer = new Customer(0, "Test", "Name", "test@email.com", "123");
-        result = controller.addCustomer(newCustomer);
-        assertNull(result);
+    void controllerCRUDTest() {
 
         // Test create
-        newCustomer = new Customer(0, "Test", "Name", "test@email.com", "1112223333");
-        result = controller.addCustomer(newCustomer);
+        Customer newCustomer = new Customer(0, "Test", "Name", "test@email.com", "1112223333");
+        Customer result = controller.addCustomer(newCustomer);
         assertThat(result).isNotNull();
 
         // Test read
@@ -53,6 +43,20 @@ class CustomerControllerTest {
         // If this test fails, test data will remain in database
         assertTrue(controller.deleteCustomer(result.getId()));
 
+    }
+
+    @Test
+    void regexTest() {
+
+        // Test email regex
+        Customer newCustomer = new Customer(0, "Test", "Name", "test.com", "1112223333");
+        Customer result = controller.addCustomer(newCustomer);
+        assertNull(result);
+
+        // Test phone number regex
+        newCustomer = new Customer(0, "Test", "Name", "test@email.com", "123");
+        result = controller.addCustomer(newCustomer);
+        assertNull(result);
     }
 
 }
