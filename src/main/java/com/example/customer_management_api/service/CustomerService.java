@@ -17,6 +17,14 @@ public class CustomerService {
         return repo.findAll();
     }
 
+    public List<Customer> findAllCustomersByOrderByFirstName() {
+        return repo.findAllCustomersByOrderByFirstName();
+    }
+
+    public List<Customer> findAllCustomersByOrderByLastName() {
+        return repo.findAllCustomersByOrderByLastName();
+    }
+
     public Customer findCustomerById(long id) {
         return repo.findById(id).orElse(null);
     }

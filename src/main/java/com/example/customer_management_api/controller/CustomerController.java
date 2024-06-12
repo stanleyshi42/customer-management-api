@@ -27,6 +27,18 @@ public class CustomerController {
         return service.findAllCustomers();
     }
 
+    @GetMapping("/customer/firstname")
+    public List<Customer> findAllCustomersByOrderByFirstName() {
+        logger.info("GET request to findAllCustomersByOrderByFirstName()");
+        return service.findAllCustomersByOrderByFirstName();
+    }
+
+    @GetMapping("/customer/lastname")
+    public List<Customer> findAllCustomersByOrderByLastName() {
+        logger.info("GET request to findAllCustomersByOrderByLastName()");
+        return service.findAllCustomersByOrderByLastName();
+    }
+
     @GetMapping("/customer/id/{id}")
     public Customer findCustomerById(@PathVariable long id) {
         logger.info("GET request to findCustomerById() with ID: {}", id);
