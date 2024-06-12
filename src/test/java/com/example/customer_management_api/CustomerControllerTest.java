@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @SpringBootTest
 class CustomerControllerTest {
 
@@ -26,22 +25,24 @@ class CustomerControllerTest {
 
         // Test create
         Customer newCustomer = new Customer(0, "Test", "Name", "test@email.com", "1112223333");
-        Customer result = controller.addCustomer(newCustomer);
-        assertThat(result).isNotNull();
+        Customer actualCustomer = controller.addCustomer(newCustomer);
+        assertThat(actualCustomer).isNotNull();
 
         // Test read
-        assertEquals("Test", result.getFirstName());
+        assertEquals("Test", actualCustomer.getFirstName());
 
         // Test update
-        result.setEmail("myemail@gmail.com");
-        result.setFirstName("User");
-        result = controller.updateCustomer(result);
-        assertEquals("myemail@gmail.com", result.getEmail());
-        assertEquals("User", result.getFirstName());
+        String expectedEmail = "myemail@gmail.com";
+        String expectedFirstName = "John";
+        actualCustomer.setEmail(expectedEmail);
+        actualCustomer.setFirstName(expectedFirstName);
+        actualCustomer = controller.updateCustomer(actualCustomer);
+        assertEquals(expectedEmail, actualCustomer.getEmail());
+        assertEquals(expectedFirstName, actualCustomer.getFirstName());
 
         // Test delete
         // If this test fails, test data will remain in database
-        assertTrue(controller.deleteCustomer(result.getId()));
+        assertTrue(controller.deleteCustomer(actualCustomer.getId()));
 
     }
 
@@ -50,13 +51,13 @@ class CustomerControllerTest {
 
         // Test email regex
         Customer newCustomer = new Customer(0, "Test", "Name", "test.com", "1112223333");
-        Customer result = controller.addCustomer(newCustomer);
-        assertNull(result);
+        Customer actualCustomer = controller.addCustomer(newCustomer);
+        assertNull(actualCustomer);
 
         // Test phone number regex
         newCustomer = new Customer(0, "Test", "Name", "test@email.com", "123");
-        result = controller.addCustomer(newCustomer);
-        assertNull(result);
+        actualCustomer = controller.addCustomer(newCustomer);
+        assertNull(actualCustomer);
     }
 
 }
