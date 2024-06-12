@@ -52,10 +52,17 @@ public class CustomerController {
 
         // Validate email syntax with regex
         Pattern emailPattern = Pattern.compile("^[^@]+@[^@]+\\.[^@]+$");
-
         Matcher matcher = emailPattern.matcher(customer.getEmail());
         if (!matcher.find()) {
             logger.trace("New customer registration failed: invalid email syntax");
+            return null;
+        }
+
+        // Validate phone number syntax with regex
+        Pattern phoneNumberPattern = Pattern.compile("^[0-9]{10}$");
+        matcher = phoneNumberPattern.matcher(customer.getPhoneNumber());
+        if (!matcher.find()) {
+            logger.trace("New customer registration failed: invalid phone number syntax");
             return null;
         }
 
