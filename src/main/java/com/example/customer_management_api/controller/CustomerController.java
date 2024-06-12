@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.example.customer_management_api.entity.Customer;
 import com.example.customer_management_api.service.CustomerService;
@@ -47,6 +49,15 @@ public class CustomerController {
     @PostMapping("/customer")
     public Customer addCustomer(@RequestBody Customer customer) {
         logger.info("POST request to addCustomer()");
+
+        // Validate email syntax with regex
+        Pattern emailPattern = Pattern.compile("^[^@]+@[^@]+\\.[^@]+$");
+
+        Matcher matcher = emailPattern.matcher(customer.getEmail());
+        if (!matcher.find()) {
+            logger.trace("New customer registration failed: invalid email syntax");
+            return null;
+        }
 
         // Prevent overwriting an existing customer
         customer.setId(0);
